@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Nguyễn Thanh Vân — Aspiring Brand Strategist</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Josefin+Sans:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --crimson:   #561C24;
+    --wine:      #6D2932;
+    --sand:      #C7B7A3;
+    --cream:     #E8D8C4;
+    --off-white: #F5EFE6;
+    --dark:      #1a0a0c;
+    --text-dark: #2c1215;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--off-white); color: var(--text-dark); font-family: 'Cormorant Garamond', serif; overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 5%;
+    background: rgba(245,239,230,0.94); backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(86,28,36,0.12);
+  }
+  .nav-logo { font-family:'Playfair Display',serif; font-size:1.05rem; font-weight:700; letter-spacing:0.1em; color:var(--crimson); text-transform:uppercase; text-decoration:none; }
+  .nav-links { display:flex; gap:2rem; list-style:none; }
+  .nav-links a { font-family:'Josefin Sans',sans-serif; font-size:0.7rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--text-dark); text-decoration:none; transition:color 0.25s; }
+  .nav-links a:hover { color:var(--crimson); }
+  .nav-cta { background:var(--crimson); color:#fff !important; padding:8px 20px; border-radius:2px; }
+  .nav-cta:hover { background:var(--wine) !important; }
+
+  /* HERO */
+  #hero { min-height:100vh; display:grid; grid-template-columns:1fr 1fr; padding-top:72px; overflow:hidden; }
+  .hero-left { display:flex; flex-direction:column; justify-content:center; padding:6% 5% 6% 8%; z-index:2; }
+  .hero-tag { font-family:'Josefin Sans',sans-serif; font-size:0.7rem; letter-spacing:0.3em; text-transform:uppercase; color:var(--crimson); margin-bottom:1.2rem; }
+  .hero-title { font-family:'Playfair Display',serif; font-size:clamp(3rem,5vw,5.5rem); font-weight:900; line-height:1.0; color:var(--crimson); margin-bottom:0.4rem; }
+  .hero-title em { font-style:italic; font-weight:400; color:var(--wine); }
+  .hero-subtitle { font-family:'Cormorant Garamond',serif; font-size:clamp(1rem,1.6vw,1.3rem); font-style:italic; color:var(--wine); letter-spacing:0.04em; margin-bottom:2rem; }
+  .hero-badges { display:flex; flex-direction:column; gap:0.6rem; margin-bottom:2.5rem; }
+  .hero-badge { font-family:'Josefin Sans',sans-serif; font-size:0.68rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--text-dark); opacity:0.7; }
+  .hero-badge::before { content:'→  '; color:var(--crimson); }
+  .btn { display:inline-block; background:var(--crimson); color:#fff; padding:14px 34px; font-family:'Josefin Sans',sans-serif; font-size:0.72rem; letter-spacing:0.2em; text-transform:uppercase; text-decoration:none; border-radius:2px; transition:background 0.25s,transform 0.2s; align-self:flex-start; }
+  .btn:hover { background:var(--wine); transform:translateY(-2px); }
+  .hero-right { position:relative; background:var(--cream); overflow:hidden; }
+  .hero-photo { width:100%; height:100%; object-fit:cover; object-position:center top; display:block; }
+  .hero-overlay { position:absolute; inset:0; background:linear-gradient(to right,var(--off-white) 0%,transparent 30%); }
+
+  /* MARQUEE */
+  .marquee-wrap { background:var(--crimson); padding:14px 0; overflow:hidden; border-top:3px solid var(--wine); border-bottom:3px solid var(--wine); }
+  .marquee-track { display:flex; width:max-content; animation:marquee 22s linear infinite; }
+  .marquee-track span { font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:700; font-style:italic; color:#fff; letter-spacing:0.05em; padding:0 2rem; white-space:nowrap; }
+  .marquee-track span.dot { color:var(--cream); font-style:normal; font-size:1rem; }
+  @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+  /* SECTION COMMON */
+  section { padding:7rem 8%; }
+  .section-label { font-family:'Josefin Sans',sans-serif; font-size:0.68rem; letter-spacing:0.3em; text-transform:uppercase; color:var(--crimson); margin-bottom:0.6rem; }
+  .section-title { font-family:'Playfair Display',serif; font-size:clamp(1.8rem,3vw,3rem); font-weight:900; color:var(--crimson); line-height:1.1; margin-bottom:2rem; }
+  .section-title em { font-style:italic; font-weight:400; }
+
+  /* ABOUT */
+  #about { background:var(--off-white); display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:center; }
+  .about-photo-wrap { position:relative; }
+  .about-photo { width:100%; aspect-ratio:3/4; object-fit:cover; object-position:center top; border-radius:2px; display:block; }
+  .about-photo-frame { position:absolute; inset:-12px -12px 12px 12px; border:2px solid var(--crimson); border-radius:2px; z-index:-1; }
+  .about-text p { font-size:clamp(1rem,1.3vw,1.15rem); line-height:1.85; margin-bottom:1.4rem; }
+  .about-meta { display:flex; gap:2rem; margin-top:2rem; flex-wrap:wrap; }
+  .about-meta-item { font-family:'Josefin Sans',sans-serif; }
+  .about-meta-label { font-size:0.62rem; letter-spacing:0.25em; text-transform:uppercase; color:var(--wine); display:block; margin-bottom:2px; }
+  .about-meta-val { font-size:0.88rem; color:var(--text-dark); font-weight:600; }
+
+  /* CAREER */
+  #career { background:var(--cream); position:relative; overflow:hidden; }
+  .career-bg-text { position:absolute; top:-2rem; right:-2rem; font-family:'Playfair Display',serif; font-size:12rem; font-weight:900; font-style:italic; color:rgba(86,28,36,0.06); line-height:1; pointer-events:none; user-select:none; }
+  .career-grid { display:grid; grid-template-columns:1.2fr 1fr; gap:4rem; align-items:start; }
+  .career-quote { border-left:4px solid var(--crimson); padding-left:2rem; margin:2rem 0; font-size:1.25rem; font-style:italic; color:var(--wine); line-height:1.7; }
+  .career-text p { font-size:1.08rem; line-height:1.9; margin-bottom:1.2rem; }
+  .personality-cards { display:flex; flex-direction:column; gap:1.2rem; }
+  .p-card { background:var(--crimson); color:#fff; padding:1.4rem 1.8rem; border-radius:2px; }
+  .p-card-type { font-family:'Josefin Sans',sans-serif; font-size:0.62rem; letter-spacing:0.25em; text-transform:uppercase; opacity:0.8; margin-bottom:4px; }
+  .p-card-val { font-family:'Playfair Display',serif; font-size:1.6rem; font-weight:700; }
+  .p-card-desc { font-size:0.88rem; line-height:1.6; margin-top:8px; opacity:0.88; }
+  .p-card.light { background:var(--off-white); color:var(--text-dark); border:1px solid var(--sand); }
+  .p-card.light .p-card-type { color:var(--wine); }
+  .p-card.light .p-card-val { color:var(--crimson); }
+
+  /* SKILLS */
+  #skills { background:var(--off-white); }
+  .skills-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; margin-top:1rem; }
+  .skill-cat { background:var(--cream); padding:2rem; border-radius:2px; border-top:3px solid var(--crimson); }
+  .skill-cat-title { font-family:'Josefin Sans',sans-serif; font-size:0.7rem; letter-spacing:0.25em; text-transform:uppercase; color:var(--crimson); margin-bottom:1.2rem; }
+  .skill-item { display:flex; align-items:center; gap:0.6rem; margin-bottom:0.75rem; font-size:0.95rem; }
+  .skill-dot { width:6px; height:6px; border-radius:50%; background:var(--crimson); flex-shrink:0; }
+  .skill-bar-wrap { height:3px; background:var(--sand); border-radius:2px; margin-top:4px; width:100%; }
+  .skill-bar { height:100%; background:var(--crimson); border-radius:2px; }
+  .skill-row { margin-bottom:0.9rem; }
+  .skill-row-label { display:flex; justify-content:space-between; font-size:0.9rem; margin-bottom:4px; }
+  .skill-row-pct { font-family:'Josefin Sans',sans-serif; font-size:0.7rem; color:var(--wine); }
+
+  /* VALUES */
+  #values { background:var(--dark); padding:6rem 8%; }
+  #values .section-label { color:var(--sand); }
+  #values .section-title { color:#fff; }
+  .values-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:1.5rem; margin-top:2rem; }
+  .value-card { background:rgba(86,28,36,0.3); border:1px solid rgba(86,28,36,0.5); padding:2rem; border-radius:2px; transition:background 0.25s; }
+  .value-card:hover { background:rgba(86,28,36,0.5); }
+  .value-card-title { font-family:'Josefin Sans',sans-serif; font-size:0.7rem; letter-spacing:0.25em; text-transform:uppercase; color:var(--sand); margin-bottom:0.8rem; }
+  .value-card-body { color:rgba(232,216,196,0.82); font-size:0.97rem; line-height:1.7; }
+
+  /* ── ACTIVITY SECTIONS (Events + Volunteer + Crochet) ── */
+  .activity-section { background:var(--off-white); padding:7rem 8%; }
+  .activity-section.alt { background:var(--cream); }
+  .activity-section.dark-bg { background:var(--dark); }
+  .activity-section.dark-bg .section-label { color:var(--sand); }
+  .activity-section.dark-bg .section-title { color:#fff; }
+  .activity-section.dark-bg .activity-desc { color:rgba(232,216,196,0.85); }
+  .activity-layout { display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:start; margin-top:1rem; }
+  .activity-layout.reverse { direction:rtl; }
+  .activity-layout.reverse > * { direction:ltr; }
+  .activity-text { }
+  .activity-desc { font-size:1.05rem; line-height:1.9; margin-bottom:1.4rem; }
+  .activity-tag-row { display:flex; gap:0.6rem; flex-wrap:wrap; margin-top:1.2rem; }
+  .activity-tag { font-family:'Josefin Sans',sans-serif; font-size:0.62rem; letter-spacing:0.18em; text-transform:uppercase; background:var(--crimson); color:#fff; padding:5px 12px; border-radius:2px; }
+  .activity-photos { display:grid; gap:0.8rem; }
+  .activity-photos.two-col { grid-template-columns:1fr 1fr; }
+  .activity-photos.one-main { grid-template-columns:1fr; }
+  .activity-photo { width:100%; border-radius:2px; object-fit:cover; display:block; }
+  .activity-photo.tall { aspect-ratio:4/3; }
+  .activity-photo.wide { aspect-ratio:16/9; }
+  .activity-photo.square { aspect-ratio:1/1; }
+  .photo-caption { font-family:'Josefin Sans',sans-serif; font-size:0.62rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--wine); margin-top:0.4rem; text-align:center; opacity:0.8; }
+
+  /* MILESTONES / SHORT-TERM CAREER PLAN */
+  #milestones { background:var(--off-white); }
+  .milestone-intro { font-size:1.08rem; line-height:1.85; max-width:700px; margin-bottom:3rem; }
+  .plan-table { width:100%; border-collapse:collapse; margin-top:1rem; }
+  .plan-table th { font-family:'Josefin Sans',sans-serif; font-size:0.65rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--wine); padding:0.8rem 1.2rem; text-align:left; background:var(--cream); border-bottom:2px solid var(--crimson); }
+  .plan-table td { padding:1.2rem 1.2rem; font-size:0.96rem; line-height:1.65; border-bottom:1px solid var(--sand); vertical-align:top; }
+  .plan-table tr:last-child td { border-bottom:none; }
+  .plan-table tr:hover td { background:rgba(199,183,163,0.18); }
+  .plan-status { display:inline-block; font-family:'Josefin Sans',sans-serif; font-size:0.6rem; letter-spacing:0.15em; text-transform:uppercase; padding:3px 10px; border-radius:2px; }
+  .plan-status.done { background:var(--crimson); color:#fff; }
+  .plan-status.progress { background:var(--cream); color:var(--wine); border:1px solid var(--wine); }
+  .milestone-screenshot { width:100%; border-radius:2px; margin-top:2rem; border:1px solid var(--sand); box-shadow:0 4px 20px rgba(86,28,36,0.12); }
+
+  /* CV */
+  #cv { background:var(--crimson); text-align:center; padding:6rem 8%; }
+  #cv .section-label { color:var(--cream); }
+  #cv .section-title { color:#fff; }
+  #cv p { color:rgba(255,255,255,0.85); font-size:1.1rem; max-width:520px; margin:0 auto 2.5rem; line-height:1.8; }
+  .btn-light { background:var(--cream); color:var(--crimson); font-weight:600; }
+  .btn-light:hover { background:#fff; }
+
+  /* CONTACT */
+  #contact { background:var(--dark); padding:6rem 8%; display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:center; }
+  #contact .section-label { color:var(--sand); }
+  #contact .section-title { color:var(--cream); }
+  #contact p { color:rgba(232,216,196,0.8); font-size:1.05rem; line-height:1.8; margin-bottom:2rem; }
+  .contact-links { display:flex; flex-direction:column; gap:1rem; }
+  .contact-link { display:flex; align-items:center; gap:1rem; color:var(--cream); text-decoration:none; font-family:'Josefin Sans',sans-serif; font-size:0.85rem; letter-spacing:0.1em; transition:color 0.2s; }
+  .contact-link:hover { color:var(--sand); }
+  .contact-link-icon { width:40px; height:40px; border-radius:2px; background:var(--crimson); display:flex; align-items:center; justify-content:center; font-size:1rem; flex-shrink:0; }
+  .contact-form { display:flex; flex-direction:column; gap:1rem; }
+  .contact-input { background:rgba(255,255,255,0.06); border:1px solid rgba(199,183,163,0.25); color:var(--cream); padding:14px 18px; font-family:'Cormorant Garamond',serif; font-size:1rem; border-radius:2px; outline:none; transition:border-color 0.25s; }
+  .contact-input::placeholder { color:rgba(199,183,163,0.45); }
+  .contact-input:focus { border-color:var(--sand); }
+  textarea.contact-input { min-height:120px; resize:vertical; }
+  .btn-send { align-self:flex-start; background:var(--crimson); color:#fff; padding:14px 34px; font-family:'Josefin Sans',sans-serif; font-size:0.72rem; letter-spacing:0.2em; text-transform:uppercase; border:none; border-radius:2px; cursor:pointer; transition:background 0.25s; }
+  .btn-send:hover { background:var(--wine); }
+
+  /* FOOTER */
+  footer { background:var(--dark); border-top:1px solid rgba(199,183,163,0.1); padding:1.5rem 8%; display:flex; align-items:center; justify-content:space-between; }
+  footer p { font-family:'Josefin Sans',sans-serif; font-size:0.65rem; letter-spacing:0.18em; text-transform:uppercase; color:rgba(199,183,163,0.45); }
+
+  /* ANIMATIONS */
+  .fade-up { opacity:0; transform:translateY(28px); transition:opacity 0.7s ease,transform 0.7s ease; }
+  .fade-up.visible { opacity:1; transform:translateY(0); }
+
+  /* RESPONSIVE */
+  @media (max-width:900px) {
+    #hero,#about,.career-grid,#contact,.activity-layout { grid-template-columns:1fr; }
+    .activity-layout.reverse { direction:ltr; }
+    .hero-right { min-height:60vw; }
+    .hero-overlay { background:linear-gradient(to top,var(--off-white) 0%,transparent 50%); }
+    .about-photo-wrap { max-width:380px; margin:0 auto; }
+    .skills-grid { grid-template-columns:1fr 1fr; }
+    .values-grid { grid-template-columns:1fr; }
+    .nav-links { display:none; }
+    .activity-photos.two-col { grid-template-columns:1fr; }
+  }
+  @media (max-width:600px) {
+    section,.activity-section { padding:4.5rem 6%; }
+    .skills-grid { grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#hero">Thanh Vân</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#career">Career</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#event-section">Activities</a></li>
+    <li><a href="#milestones">Goals</a></li>
+    <li><a href="#cv">CV</a></li>
+    <li><a href="#contact" class="nav-cta">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <p class="hero-tag">Brand Strategist · FTU · Business English</p>
+    <h1 class="hero-title">Hi, <em>I'm</em><br>Thanh Vân</h1>
+    <p class="hero-subtitle">Aspiring Brand Strategist &amp; Strategic Leader</p>
+    <div class="hero-badges">
+      <span class="hero-badge">Foreign Trade University — Business English</span>
+      <span class="hero-badge">MBTI: ENTJ-T — The Commander</span>
+      <span class="hero-badge">IELTS 7.0 — Professional English</span>
+      <span class="hero-badge">Holland RIASEC: ESI · DISC: D/I</span>
+    </div>
+    <a href="#about" class="btn">Get to Know Me</a>
+  </div>
+  <div class="hero-right">
+    <img src="snapedit_1776096557965.jpeg" alt="Nguyễn Thanh Vân" class="hero-photo"/>
+    <div class="hero-overlay"></div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span>Brand Strategy</span><span class="dot">✦</span>
+    <span>Content Direction</span><span class="dot">✦</span>
+    <span>Visual Identity</span><span class="dot">✦</span>
+    <span>Strategic Thinking</span><span class="dot">✦</span>
+    <span>Business English</span><span class="dot">✦</span>
+    <span>Consumer Insight</span><span class="dot">✦</span>
+    <span>Brand Positioning</span><span class="dot">✦</span>
+    <span>Brand Strategy</span><span class="dot">✦</span>
+    <span>Content Direction</span><span class="dot">✦</span>
+    <span>Visual Identity</span><span class="dot">✦</span>
+    <span>Strategic Thinking</span><span class="dot">✦</span>
+    <span>Business English</span><span class="dot">✦</span>
+    <span>Consumer Insight</span><span class="dot">✦</span>
+    <span>Brand Positioning</span><span class="dot">✦</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-photo-wrap fade-up">
+    <img src="snapedit_1776096557965.jpeg" alt="Nguyễn Thanh Vân" class="about-photo"/>
+    <div class="about-photo-frame"></div>
+  </div>
+  <div class="about-text fade-up">
+    <p class="section-label">About Me</p>
+    <h2 class="section-title">Nguyễn<br><em>Thanh Vân</em></h2>
+    <p>
+      I am a Business English student at Foreign Trade University (FTU), driven by a deep passion for brand strategy, consumer psychology, and the art of building businesses that people genuinely connect with.
+    </p>
+    <p>
+      As a natural strategic thinker with an ENTJ mindset, I approach every challenge with clarity, ambition, and a vision for meaningful impact. My goal is to bridge the gap between analytical insight and creative direction — crafting brand narratives that are not only compelling, but commercially powerful.
+    </p>
+    <p>
+      From managing my own crochet business to coordinating large-scale community events, I bring both a business mindset and hands-on experience to everything I do. I am here to grow, lead, and build brands that matter.
+    </p>
+    <div class="about-meta">
+      <div class="about-meta-item">
+        <span class="about-meta-label">University</span>
+        <span class="about-meta-val">Foreign Trade University</span>
+      </div>
+      <div class="about-meta-item">
+        <span class="about-meta-label">Major</span>
+        <span class="about-meta-val">Business English</span>
+      </div>
+      <div class="about-meta-item">
+        <span class="about-meta-label">IELTS</span>
+        <span class="about-meta-val">7.0</span>
+      </div>
+      <div class="about-meta-item">
+        <span class="about-meta-label">Based In</span>
+        <span class="about-meta-val">Hanoi, Vietnam</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAREER GOALS -->
+<section id="career">
+  <div class="career-bg-text">Brand</div>
+  <div class="career-grid">
+    <div class="career-text fade-up">
+      <p class="section-label">Career Goals</p>
+      <h2 class="section-title">The Path to<br><em>Brand Strategy</em></h2>
+      <blockquote class="career-quote">
+        "In branding, success is not only about creativity — it's about making clear, strategic choices that shape how a brand is perceived in the market."
+      </blockquote>
+      <p>
+        My ambition is to become a <strong>Brand Strategist</strong> — a professional who sits at the intersection of business intelligence, creative vision, and consumer understanding. I chose this path because it demands exactly the qualities that come most naturally to me: the ability to analyse markets with precision, identify patterns in consumer behaviour, and translate those insights into a clear, compelling brand direction.
+      </p>
+      <p>
+        My ENTJ personality reinforces this fit. I am a structured, outcome-driven thinker who leads with strategy first and builds creative frameworks around defined goals. I do not just want to make brands look good — I want to make them mean something, and perform.
+      </p>
+      <p>
+        Through managing my own crochet business, I have already applied these instincts in practice — shaping a visual identity, directing content strategy, and adapting based on customer response. This hands-on experience confirmed that brand-building is where I belong.
+      </p>
+      <p>
+        Looking ahead, I aim to deepen my expertise in consumer insights, emotional storytelling, and data-driven brand management — ultimately contributing to a dynamic brand consultancy or in-house strategic team where I can build brands that are purposeful and sustainably positioned for growth.
+      </p>
+    </div>
+    <div class="personality-cards fade-up">
+      <div class="p-card">
+        <div class="p-card-type">MBTI Result</div>
+        <div class="p-card-val">ENTJ-T</div>
+        <div class="p-card-desc">The Commander — strategic, decisive, goal-oriented. Natural leader who thrives in structured, outcome-driven environments.</div>
+      </div>
+      <div class="p-card light">
+        <div class="p-card-type">Holland / RIASEC</div>
+        <div class="p-card-val">ESI</div>
+        <div class="p-card-desc">Enterprising · Social · Investigative — combines leadership drive with people-awareness and analytical curiosity.</div>
+      </div>
+      <div class="p-card">
+        <div class="p-card-type">DISC Profile</div>
+        <div class="p-card-val">D / I</div>
+        <div class="p-card-desc">Dominance &amp; Influence — results-focused with strong interpersonal energy. Thrives in high-impact, collaborative settings.</div>
+      </div>
+      <div class="p-card light">
+        <div class="p-card-type">Key Strength</div>
+        <div class="p-card-val">Strategic Vision</div>
+        <div class="p-card-desc">Ability to see the big picture, set direction, and move from insight to action with confidence and clarity.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <p class="section-label fade-up">Skills &amp; Competencies</p>
+  <h2 class="section-title fade-up">What I<br><em>Bring to the Table</em></h2>
+  <div class="skills-grid">
+    <div class="skill-cat fade-up">
+      <div class="skill-cat-title">Languages</div>
+      <div class="skill-row">
+        <div class="skill-row-label"><span>English — IELTS 7.0</span><span class="skill-row-pct">Professional</span></div>
+        <div class="skill-bar-wrap"><div class="skill-bar" style="width:88%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-row-label"><span>Vietnamese</span><span class="skill-row-pct">Native</span></div>
+        <div class="skill-bar-wrap"><div class="skill-bar" style="width:100%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-row-label"><span>Business Writing (EN)</span><span class="skill-row-pct">Advanced</span></div>
+        <div class="skill-bar-wrap"><div class="skill-bar" style="width:85%"></div></div>
+      </div>
+    </div>
+    <div class="skill-cat fade-up">
+      <div class="skill-cat-title">Tools &amp; Software</div>
+      <div class="skill-item"><span class="skill-dot"></span>Microsoft Word, PowerPoint, Excel</div>
+      <div class="skill-item"><span class="skill-dot"></span>Google Docs, Sheets, Slides &amp; Drive</div>
+      <div class="skill-item"><span class="skill-dot"></span>Google Forms &amp; Google Workspace</div>
+      <div class="skill-item"><span class="skill-dot"></span>Canva — Visual Design &amp; Content</div>
+      <div class="skill-item"><span class="skill-dot"></span>Social Media Platforms (Instagram, TikTok)</div>
+    </div>
+    <div class="skill-cat fade-up">
+      <div class="skill-cat-title">Professional Skills</div>
+      <div class="skill-item"><span class="skill-dot"></span>Market Research &amp; Consumer Insights</div>
+      <div class="skill-item"><span class="skill-dot"></span>Brand Analysis &amp; Competitive Benchmarking</div>
+      <div class="skill-item"><span class="skill-dot"></span>Strategic Planning &amp; Project Management</div>
+      <div class="skill-item"><span class="skill-dot"></span>Event Organisation &amp; Logistics</div>
+      <div class="skill-item"><span class="skill-dot"></span>Public Relations &amp; External Affairs</div>
+      <div class="skill-item"><span class="skill-dot"></span>Creative Thinking &amp; Concept Development</div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section id="values">
+  <p class="section-label fade-up">What Drives Me</p>
+  <h2 class="section-title fade-up">My <em>Values</em></h2>
+  <div class="values-grid">
+    <div class="value-card fade-up">
+      <div class="value-card-title">Authenticity</div>
+      <div class="value-card-body">A brand should feel honest. I believe in building strategies that reflect what a brand truly stands for — not what's trending, but what's true. Authenticity is what turns a product into something people trust.</div>
+    </div>
+    <div class="value-card fade-up">
+      <div class="value-card-title">Strategic Clarity</div>
+      <div class="value-card-body">Creativity without direction gets lost. I am driven by the need to pair bold ideas with clear thinking, measurable outcomes, and purposeful execution. Strategy is the backbone of every great brand.</div>
+    </div>
+    <div class="value-card fade-up">
+      <div class="value-card-title">Continuous Growth</div>
+      <div class="value-card-body">As an ENTJ, I am always pushing toward the next level — learning, adapting, and evolving. I treat every project, every role, and every challenge as an opportunity to become sharper and more capable.</div>
+    </div>
+    <div class="value-card fade-up">
+      <div class="value-card-title">Human Impact</div>
+      <div class="value-card-body">Behind every brand is a person and a community. I want to create work that not only performs commercially, but genuinely improves how people experience the world around them.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- ACTIVITY 1: EVENT ORGANISING & EXTERNAL RELATIONS -->
+<!-- ══════════════════════════════════════════════ -->
+<div class="activity-section" id="event-section">
+  <p class="section-label fade-up">Extracurriculars · External Relations</p>
+  <h2 class="section-title fade-up">Event Organising &amp;<br><em>External Affairs</em></h2>
+  <div class="activity-layout">
+    <div class="activity-text fade-up">
+      <p class="activity-desc">
+        As a member of the External Affairs team and CDC club at Thai Binh Specialized High School, I led community outreach, coordinated multi-stakeholder events, and produced content campaigns — building hands-on skills in strategic communication, logistics, and external-facing brand representation.
+      </p>
+      <p class="activity-desc">
+        I co-organised the <strong>"Chợ Tết 0 Đồng" (Free Tet Market 2026)</strong>, managing logistics, volunteer coordination, and on-site communication for over 100 attendees. I also served as an Admissions Counsellor — crafting and delivering persuasive messaging about school programmes to prospective students and their families, which directly strengthened my skills in audience communication and institutional storytelling.
+      </p>
+      <p class="activity-desc">
+        Through the CDC club, I participated in content production, external communications, and community storytelling campaigns — gaining early, real-world experience in how narrative and visual content shape the way an organisation is perceived.
+      </p>
+      <div class="activity-tag-row">
+        <span class="activity-tag">Event Management</span>
+        <span class="activity-tag">External Relations</span>
+        <span class="activity-tag">Logistics</span>
+        <span class="activity-tag">Public Communication</span>
+        <span class="activity-tag">Content Production</span>
+      </div>
+    </div>
+    <div class="fade-up">
+      <div class="activity-photos two-col">
+        <div>
+          <img src="673835510_967547322689855_2201657527337234150_n.jpg" alt="Chợ Tết 0 Đồng 2026" class="activity-photo tall"/>
+          <p class="photo-caption">Chợ Tết 0 Đồng — Thai Binh 2026</p>
+        </div>
+        <div>
+          <img src="477901257_625536060172026_1592335347906666878_n.jpg" alt="CDC Club Content Campaign" class="activity-photo tall"/>
+          <p class="photo-caption">CDC Club — Community Content Campaign</p>
+        </div>
+      </div>
+      <div style="margin-top:0.8rem;">
+        <img src="477094262_625526956839603_1847176366433505941_n.jpg" alt="Admissions Counselling" class="activity-photo wide"/>
+        <p class="photo-caption">Admissions Counselling &amp; Student Recruitment · FTU</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- ACTIVITY 2: VOLUNTEER & COMMUNITY SERVICE -->
+<!-- ══════════════════════════════════════════════ -->
+<div class="activity-section alt" id="volunteer-section">
+  <p class="section-label fade-up">Extracurriculars · Community Service</p>
+  <h2 class="section-title fade-up">Volunteer &amp;<br><em>Community Impact</em></h2>
+  <div class="activity-layout reverse">
+    <div class="activity-text fade-up">
+      <p class="activity-desc">
+        I have been an active youth volunteer across multiple social initiatives — from summer outreach programmes with underprivileged children to national exam support coordination — demonstrating strong interpersonal skills, empathy-driven leadership, and a genuine commitment to community impact.
+      </p>
+      <p class="activity-desc">
+        As a <strong>National Exam Support Volunteer (THPTQG)</strong>, I coordinated logistical teams under time-sensitive, high-pressure conditions — an experience that strengthened my project management capabilities and composure in demanding environments.
+      </p>
+      <p class="activity-desc">
+        I also participated in <strong>Children's Summer Camp</strong> volunteer programmes, engaging directly with young children from disadvantaged backgrounds through educational and recreational activities. These experiences reinforced my belief that meaningful work must be rooted in empathy — a value I carry directly into how I approach brand strategy and storytelling.
+      </p>
+      <div class="activity-tag-row">
+        <span class="activity-tag">Youth Volunteer</span>
+        <span class="activity-tag">Community Outreach</span>
+        <span class="activity-tag">Exam Coordination</span>
+        <span class="activity-tag">Leadership</span>
+        <span class="activity-tag">Social Impact</span>
+      </div>
+    </div>
+    <div class="fade-up">
+      <div class="activity-photos two-col">
+        <div>
+          <img src="1779196461144_image.png" alt="Children Summer Camp" class="activity-photo tall"/>
+          <p class="photo-caption">Children Summer Camp — Social Volunteer</p>
+        </div>
+        <div>
+          <img src="480344335_628249296567369_1424735326437640357_n.jpg" alt="National Exam Support" class="activity-photo tall"/>
+          <p class="photo-caption">National Exam Support (THPTQG)</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- ACTIVITY 3: CROCHET BUSINESS / ENTREPRENEURSHIP -->
+<!-- ══════════════════════════════════════════════ -->
+<div class="activity-section dark-bg" id="crochet-section">
+  <p class="section-label fade-up">Personal Entrepreneurship</p>
+  <h2 class="section-title fade-up">Crochet Business —<br><em>@vanhie.shop</em></h2>
+  <div class="activity-layout">
+    <div class="activity-text fade-up">
+      <p class="activity-desc">
+        In 2024, I founded and self-managed a personal crochet e-commerce business — <strong>@vanhie.shop</strong> — from the ground up. This venture was my earliest, most hands-on application of brand strategy principles in a real commercial context.
+      </p>
+      <p class="activity-desc">
+        I conducted market trend analysis to identify target audience aesthetics and product-market fit within Vietnam's growing handmade goods segment. I then developed the full brand identity — including visual language, tone of voice, and a content calendar — and managed the complete e-commerce operation: product photography, pricing strategy, customer communication, and inventory planning.
+      </p>
+      <p class="activity-desc">
+        I iterated on brand positioning based on real-time customer feedback and engagement data, achieving measurable growth in repeat buyers. This experience demonstrated that brand-building is not abstract — it is a discipline of observation, decision-making, and consistent execution.
+      </p>
+      <div class="activity-tag-row">
+        <span class="activity-tag">Brand Identity</span>
+        <span class="activity-tag">E-commerce</span>
+        <span class="activity-tag">Content Strategy</span>
+        <span class="activity-tag">Market Research</span>
+        <span class="activity-tag">Product Development</span>
+      </div>
+    </div>
+    <div class="fade-up">
+      <img src="IMG_9649.JPG" alt="Vanhie Shop — Crochet Business" class="activity-photo wide"/>
+      <p class="photo-caption" style="color:var(--sand);">@vanhie.shop — Product &amp; Brand Content</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- SHORT-TERM CAREER PLAN / MILESTONES -->
+<!-- ══════════════════════════════════════════════ -->
+<section id="milestones">
+  <p class="section-label fade-up">Short-Term Career Plan</p>
+  <h2 class="section-title fade-up">Goals &amp;<br><em>Milestones</em></h2>
+  <p class="milestone-intro fade-up">
+    As part of my career development journey at FTU, I set three concrete short-term goals to build the foundations of a Brand Strategist portfolio. Here is where I stand — and where I am heading.
+  </p>
+  <table class="plan-table fade-up">
+    <thead>
+      <tr>
+        <th>Goal</th>
+        <th>Why It Matters</th>
+        <th>How I Measure Success</th>
+        <th>Deadline</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Complete 1 full brand case study based on my crochet business (including target audience, positioning, and content strategy)</td>
+        <td>Helps demonstrate strategic thinking instead of just design, which is essential for a Brand Strategist role</td>
+        <td>1 case study published on my portfolio website with clear sections: problem – strategy – execution – result</td>
+        <td>Within 3 weeks</td>
+        <td><span class="plan-status progress">In Progress</span></td>
+      </tr>
+      <tr>
+        <td>Build and finalise my personal portfolio website (including About, Projects, and Career Goals sections)</td>
+        <td>A strong portfolio is necessary to present my skills and direction to recruiters or potential opportunities</td>
+        <td>Fully functional website with at least 1 project and all key sections completed</td>
+        <td>Within 4 weeks</td>
+        <td><span class="plan-status done">✓ Completed</span></td>
+      </tr>
+      <tr>
+        <td>Improve my understanding of brand positioning and consumer behaviour through focused self-study</td>
+        <td>Strengthens my ability to make strategic branding decisions based on consumer insight</td>
+        <td>Complete 1 learning resource and write 1 short reflection or summary (200–300 words) on my website</td>
+        <td>Within 2 weeks</td>
+        <td><span class="plan-status progress">In Progress</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <img src="Screenshot_2026-05-19_164018.png" alt="Short-Term Career Plan Screenshot" class="milestone-screenshot fade-up"/>
+</section>
+
+<!-- CV DOWNLOAD -->
+<section id="cv">
+  <p class="section-label">My Résumé</p>
+  <h2 class="section-title">Download<br><em>My CV</em></h2>
+  <p>A professionally formatted version of my curriculum vitae is available for download — covering my academic background, skills, project experience, extracurricular activities, and career objectives.</p>
+  <a href="Nguyen_Thanh_Van_CV.pdf" download class="btn btn-light">Download CV (PDF)</a>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="fade-up">
+    <p class="section-label">Let's Connect</p>
+    <h2 class="section-title">Get In<br><em>Touch</em></h2>
+    <p>I am always open to meaningful conversations — whether you would like to discuss brand strategy, explore a potential collaboration, or simply connect with a driven emerging professional in the field. I would love to hear from you.</p>
+    <div class="contact-links">
+      <a href="mailto:naomipham377@gmail.com" class="contact-link">
+        <div class="contact-link-icon">✉️</div>
+        naomipham377@gmail.com
+      </a>
+      <a href="https://linkedin.com/in/nguyenthanhvan" target="_blank" class="contact-link">
+        <div class="contact-link-icon">💼</div>
+        LinkedIn — Nguyễn Thanh Vân
+      </a>
+    </div>
+  </div>
+  <div class="fade-up">
+    <form class="contact-form" onsubmit="handleForm(event)">
+      <input type="text" class="contact-input" placeholder="Your Name" required/>
+      <input type="email" class="contact-input" placeholder="Your Email" required/>
+      <input type="text" class="contact-input" placeholder="Subject"/>
+      <textarea class="contact-input" placeholder="Your Message..." required></textarea>
+      <button type="submit" class="btn-send">Send Message</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 Nguyễn Thanh Vân — All Rights Reserved</p>
+  <p>Career Portfolio · FTU Business English</p>
+</footer>
+
+<script>
+const faders = document.querySelectorAll('.fade-up');
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 80);
+      obs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+faders.forEach(f => obs.observe(f));
+
+document.querySelectorAll('.skills-grid,.values-grid,.personality-cards').forEach(grid => {
+  grid.querySelectorAll('.fade-up').forEach((el, i) => {
+    el.style.transitionDelay = `${i * 0.1}s`;
+  });
+});
+
+function handleForm(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('.btn-send');
+  btn.textContent = 'Message Sent ✓';
+  btn.style.background = '#2d6a2d';
+  setTimeout(() => {
+    btn.textContent = 'Send Message';
+    btn.style.background = '';
+    e.target.reset();
+  }, 3000);
+}
+</script>
+</body>
+</html>
